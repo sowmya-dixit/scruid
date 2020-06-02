@@ -66,8 +66,10 @@ trait LowerCaseEnumStringEncoder extends EnumStringEncoder { this: Enum =>
 }
 
 trait CamelCaseEnumStringEncoder extends EnumStringEncoder { this: Enum =>
-  private def decapitalize(input: String) = s"${input.head.toLower}${input.tail}"
-  def encode()                            = decapitalize(toString)
+  private def decapitalize(input: String) =
+    if (input.contains("HLLSketchMerge")) input
+    else s"${input.head.toLower}${input.tail}"
+  def encode() = decapitalize(toString)
 }
 
 trait LispCaseEnumStringEncoder extends EnumStringEncoder { this: Enum =>

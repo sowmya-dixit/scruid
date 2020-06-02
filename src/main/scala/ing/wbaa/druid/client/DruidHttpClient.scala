@@ -87,7 +87,9 @@ class DruidHttpClient private (connectionFlow: DruidHttpClient.ConnectionFlowTyp
       .single(request)
       .via(connectionFlow)
       .runWith(Sink.head)
-      .flatMap(response => handleResponse(response, queryType, druidConfig.responseParsingTimeout))
+      .flatMap(
+        response => handleResponse(response, queryType, druidConfig.responseParsingTimeout)
+      )
   }
 
   private def createHttpRequest(
